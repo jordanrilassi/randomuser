@@ -42,13 +42,15 @@ class HomeInteractor: HomeBusinessLogic, HomeDataStore
             case .success(let response):
                 self?.users.append(contentsOf: response.results)
                 self?.apiCancellable = nil
-            case .failure(let error):
+                
+                guard let users = self?.users else { return }
+                let response = Home.Users.Response(users: users)
+                self?.presenter?.presentSomething(response: response)
+            case .failure(_):
                 // Hanlde error
                 break
             }
         }
         apiCancellable = cancellable
-        let response = Home.Something.Response()
-        presenter?.presentSomething(response: response)
     }
 }

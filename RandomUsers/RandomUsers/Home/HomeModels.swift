@@ -10,16 +10,15 @@ enum Home
 {
   // MARK: Use cases
   
-  enum Something
+  enum Users
   {
-    struct Request
-    {
-    }
     struct Response
     {
+        let users: [User]
     }
     struct ViewModel
     {
+        let usersViewModel: [UserViewModel]
     }
   }
 }

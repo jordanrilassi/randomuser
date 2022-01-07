@@ -30,8 +30,9 @@
 		0986DEE92788442E006FB672 /* UserAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0986DEE82788442E006FB672 /* UserAPIService.swift */; };
 		0986DEEB27884499006FB672 /* GetUsersRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0986DEEA27884499006FB672 /* GetUsersRequest.swift */; };
 		0986DEED278844C3006FB672 /* GetUsersResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0986DEEC278844C3006FB672 /* GetUsersResponse.swift */; };
-		0986DEEF27887BD5006FB672 /* Name.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0986DEEE27887BD5006FB672 /* Name.swift */; };
 		0986DEF327887C92006FB672 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0986DEF227887C92006FB672 /* Location.swift */; };
+		0986DEF627888282006FB672 /* HomeUserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0986DEF527888282006FB672 /* HomeUserCell.swift */; };
+		0986DEF927888473006FB672 /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0986DEF827888473006FB672 /* UserViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,8 +80,9 @@
 		0986DEE82788442E006FB672 /* UserAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAPIService.swift; sourceTree = "<group>"; };
 		0986DEEA27884499006FB672 /* GetUsersRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetUsersRequest.swift; sourceTree = "<group>"; };
 		0986DEEC278844C3006FB672 /* GetUsersResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetUsersResponse.swift; sourceTree = "<group>"; };
-		0986DEEE27887BD5006FB672 /* Name.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Name.swift; sourceTree = "<group>"; };
 		0986DEF227887C92006FB672 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
+		0986DEF527888282006FB672 /* HomeUserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeUserCell.swift; sourceTree = "<group>"; };
+		0986DEF827888473006FB672 /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -166,6 +168,8 @@
 		0986DEB527875005006FB672 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				0986DEF727888469006FB672 /* ViewModels */,
+				0986DEF427888254006FB672 /* Cells */,
 				0986DED627883413006FB672 /* HomePresenter.swift */,
 				0986DED727883413006FB672 /* HomeWorker.swift */,
 				0986DED827883413006FB672 /* HomeRouter.swift */,
@@ -209,10 +213,25 @@
 			isa = PBXGroup;
 			children = (
 				0986DED4278759B8006FB672 /* User.swift */,
-				0986DEEE27887BD5006FB672 /* Name.swift */,
 				0986DEF227887C92006FB672 /* Location.swift */,
 			);
 			path = RandomUser;
+			sourceTree = "<group>";
+		};
+		0986DEF427888254006FB672 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				0986DEF527888282006FB672 /* HomeUserCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		0986DEF727888469006FB672 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				0986DEF827888473006FB672 /* UserViewModel.swift */,
+			);
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -352,18 +371,19 @@
 				0986DEEB27884499006FB672 /* GetUsersRequest.swift in Sources */,
 				0986DE6127870386006FB672 /* ViewController.swift in Sources */,
 				0986DEE327883790006FB672 /* UserAPI.swift in Sources */,
-				0986DEEF27887BD5006FB672 /* Name.swift in Sources */,
 				0986DEE127883413006FB672 /* HomeInteractor.swift in Sources */,
 				0986DED5278759B8006FB672 /* User.swift in Sources */,
 				0986DEE727883878006FB672 /* Configuration.swift in Sources */,
 				0986DEE5278837BA006FB672 /* API.swift in Sources */,
 				0986DE5D27870386006FB672 /* AppDelegate.swift in Sources */,
 				0986DEE92788442E006FB672 /* UserAPIService.swift in Sources */,
+				0986DEF627888282006FB672 /* HomeUserCell.swift in Sources */,
 				0986DEDF27883413006FB672 /* HomeModels.swift in Sources */,
 				0986DEF327887C92006FB672 /* Location.swift in Sources */,
 				0986DEE027883413006FB672 /* HomeViewController.swift in Sources */,
 				0986DEDD27883413006FB672 /* HomeWorker.swift in Sources */,
 				0986DEDE27883413006FB672 /* HomeRouter.swift in Sources */,
+				0986DEF927888473006FB672 /* UserViewModel.swift in Sources */,
 				0986DE5F27870386006FB672 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

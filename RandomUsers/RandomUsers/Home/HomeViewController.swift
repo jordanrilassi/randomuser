@@ -8,7 +8,7 @@ import UIKit
 
 protocol HomeDisplayLogic: AnyObject
 {
-    func displaySomething(viewModel: Home.Something.ViewModel)
+    func displayUsers(viewModel: Home.Users.ViewModel)
 }
 
 class HomeViewController: UIViewController, HomeDisplayLogic
@@ -63,20 +63,52 @@ class HomeViewController: UIViewController, HomeDisplayLogic
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        setupCollectionView()
         loadFirstUsers()
     }
     
-    // MARK: Do something
+    private var collectionView: UICollectionView?
+    private var users: [UserViewModel] = []
     
-    //@IBOutlet weak var nameTextField: UITextField!
+    private func setupCollectionView() {
+        let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .vertical
+        layout.sectionInset = UIEdgeInsets(top: 20, left: 10, bottom: 10, right: 10)
+        layout.itemSize = CGSize(width: self.view.frame.size.width, height: 60)
+        
+        collectionView = UICollectionView(frame: self.view.frame, collectionViewLayout: layout)
+        collectionView?.register(HomeUserCell.self, forCellWithReuseIdentifier: CollectionViewCells.homeUserCell.rawValue)
+        
+        collectionView?.delegate = self
+        collectionView?.dataSource = self
+        
+        guard let collectionView = collectionView else { return }
+        view.addSubview(collectionView)
+    }
     
-    func loadFirstUsers()
+    private func loadFirstUsers()
     {
         interactor?.loadUserBatch()
     }
     
-    func displaySomething(viewModel: Home.Something.ViewModel)
+    func displayUsers(viewModel: Home.Users.ViewModel)
     {
-        //nameTextField.text = viewModel.name
+        users = viewModel.usersViewModel
+        collectionView?.reloadData()
+    }
+}
+
+extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        users.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let homeUserCell = collectionView.dequeueReusableCell(withReuseIdentifier: CollectionViewCells.homeUserCell.rawValue, for: indexPath) as? HomeUserCell else {
+            return UICollectionViewCell()
+        }
+        let userViewModel = users[indexPath.row]
+        homeUserCell.userViewModel = userViewModel
+        return homeUserCell
     }
 }

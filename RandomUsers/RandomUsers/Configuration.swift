@@ -12,3 +12,7 @@ struct Environment {
         "https://randomuser.me/api/"
     }
 }
+
+enum CollectionViewCells: String {
+    case homeUserCell = "HomeUserCell"
+}
