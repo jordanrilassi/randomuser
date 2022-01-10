@@ -22,6 +22,7 @@ class HomeInteractor: HomeBusinessLogic, HomeDataStore
     var presenter: HomePresentationLogic?
     var worker: HomeWorker
     fileprivate var users: [User] = []
+    fileprivate var batchUsers: [User] = []
     fileprivate let userBatch = 10
     fileprivate var apiCancellable: Any?
     
@@ -30,7 +31,11 @@ class HomeInteractor: HomeBusinessLogic, HomeDataStore
     }
     
     private var pageForBatch: Int {
-        (users.count + userBatch) / userBatch
+        if users.isEmpty {
+            return 0
+        } else {
+            return (users.count + userBatch) / userBatch
+        }
     }
     
     // MARK: Do something
@@ -44,8 +49,7 @@ class HomeInteractor: HomeBusinessLogic, HomeDataStore
                 self?.users.append(contentsOf: response.results)
                 self?.apiCancellable = nil
                 
-                guard let users = self?.users else { return }
-                let response = Home.Users.Response(users: users)
+                let response = Home.Users.Response(users: response.results)
                 self?.presenter?.presentUsers(response: response)
             case .failure(_):
                 // Hanlde error

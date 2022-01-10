@@ -73,8 +73,8 @@ class HomeViewController: UIViewController, HomeDisplayLogic
     
     private var activityIndicator: UIActivityIndicatorView?
     private var collectionView: UICollectionView?
-    private var refreshControl: UIRefreshControl?
     private var isBatchLoading = false
+    private var isReloadingAllUsers = false
     private var users: [UserViewModel] = []
     
     private func setupCollectionView() {
@@ -95,8 +95,7 @@ class HomeViewController: UIViewController, HomeDisplayLogic
         let refresher = UIRefreshControl()
         refresher.addTarget(self, action: #selector(reloadAllUsers), for: .valueChanged)
         
-        refreshControl = refresher
-        collectionView?.addSubview(refreshControl!)
+        collectionView?.refreshControl = refresher
         
         guard let collectionView = collectionView else { return }
         view.addSubview(collectionView)
@@ -124,16 +123,34 @@ class HomeViewController: UIViewController, HomeDisplayLogic
     @objc private func reloadAllUsers() {
         print("refresh")
         isBatchLoading = true
+        isReloadingAllUsers = true
         interactor?.reloadAllUsers()
     }
     
     func displayUsers(viewModel: Home.Users.ViewModel)
     {
-        isBatchLoading = false
         collectionView?.isHidden = false
-        users = viewModel.usersViewModel
-        collectionView?.reloadData()
-        refreshControl?.endRefreshing()
+        if users.isEmpty || isReloadingAllUsers {
+            users = viewModel.usersViewModel
+            collectionView?.reloadData()
+            isBatchLoading = false
+            isReloadingAllUsers = false
+        } else {
+            var newIndexPaths: [IndexPath] = []
+            for index in 1...viewModel.usersViewModel.count {
+                let row = users.count-1 + index
+                let indexPath = IndexPath(row: row, section: 0)
+                newIndexPaths.append(indexPath)
+            }
+            users.append(contentsOf: viewModel.usersViewModel)
+            
+            collectionView?.performBatchUpdates({ [weak self] in
+                self?.collectionView?.insertItems(at: newIndexPaths)
+            }, completion: { [weak self] _ in
+                self?.isBatchLoading = false
+                self?.collectionView?.refreshControl?.endRefreshing()
+            })
+        }
     }
 }
 
