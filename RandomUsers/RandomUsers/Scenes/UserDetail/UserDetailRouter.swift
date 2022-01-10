@@ -1,25 +1,25 @@
 //
-//  HomeRouter.swift
+//  UserDetailRouter.swift
 //  RandomUsers
 //
 //  Created by Rilassi Jordan.
 
 import UIKit
 
-@objc protocol HomeRoutingLogic
+@objc protocol UserDetailRoutingLogic
 {
   //func routeToSomewhere(segue: UIStoryboardSegue?)
 }
 
-protocol HomeDataPassing
+protocol UserDetailDataPassing
 {
-  var dataStore: HomeDataStore? { get }
+  var dataStore: UserDetailDataStore? { get }
 }
 
-class HomeRouter: NSObject, HomeRoutingLogic, HomeDataPassing
+class UserDetailRouter: NSObject, UserDetailRoutingLogic, UserDetailDataPassing
 {
-  weak var viewController: HomeViewController?
-  var dataStore: HomeDataStore?
+  weak var viewController: UserDetailViewController?
+  var dataStore: UserDetailDataStore?
   
   // MARK: Routing
   
@@ -40,14 +40,14 @@ class HomeRouter: NSObject, HomeRoutingLogic, HomeDataPassing
 
   // MARK: Navigation
   
-  //func navigateToSomewhere(source: HomeViewController, destination: SomewhereViewController)
+  //func navigateToSomewhere(source: UserDetailViewController, destination: SomewhereViewController)
   //{
   //  source.show(destination, sender: nil)
   //}
   
   // MARK: Passing data
   
-  //func passDataToSomewhere(source: HomeDataStore, destination: inout SomewhereDataStore)
+  //func passDataToSomewhere(source: UserDetailDataStore, destination: inout SomewhereDataStore)
   //{
   //  destination.name = source.name
   //}

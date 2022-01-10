@@ -9,6 +9,7 @@ import UIKit
 protocol HomeDisplayLogic: AnyObject
 {
     func displayUsers(viewModel: Home.Users.ViewModel)
+    func displayUserToDisplay()
 }
 
 class HomeViewController: UIViewController, HomeDisplayLogic
@@ -44,18 +45,6 @@ class HomeViewController: UIViewController, HomeDisplayLogic
         presenter.viewController = viewController
         router.viewController = viewController
         router.dataStore = interactor
-    }
-    
-    // MARK: Routing
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
-    {
-        if let scene = segue.identifier {
-            let selector = NSSelectorFromString("routeTo\(scene)WithSegue:")
-            if let router = router, router.responds(to: selector) {
-                router.perform(selector, with: segue)
-            }
-        }
     }
     
     // MARK: View lifecycle
@@ -132,6 +121,10 @@ class HomeViewController: UIViewController, HomeDisplayLogic
             })
         }
     }
+    
+    func displayUserToDisplay() {
+        router?.routeToUserToDisplay()
+    }
 }
 
 extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelegate {
@@ -145,6 +138,12 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
         }
         
         return loadHomeUserCell(collectionView: collectionView, cellForItemAt: indexPath)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print("show user")
+        let request = Home.UserToDisplay.Request(index: indexPath.row)
+        interactor?.userToDisplay(request: request)
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {

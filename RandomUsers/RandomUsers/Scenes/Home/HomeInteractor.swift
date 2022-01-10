@@ -10,17 +10,20 @@ protocol HomeBusinessLogic
 {
     func loadUserBatch()
     func reloadAllUsers()
+    func userToDisplay(request: Home.UserToDisplay.Request)
 }
 
 protocol HomeDataStore
 {
-    //var name: String { get set }
+    var userToDisplay: User? { get set }
 }
 
 class HomeInteractor: HomeBusinessLogic, HomeDataStore
 {
     var presenter: HomePresentationLogic?
     var worker: HomeWorker
+    var userToDisplay: User?
+    
     fileprivate var users: [User] = []
     fileprivate var batchUsers: [User] = []
     fileprivate let userBatch = 10
@@ -62,5 +65,10 @@ class HomeInteractor: HomeBusinessLogic, HomeDataStore
     func reloadAllUsers() {
         users.removeAll()
         loadUserBatch()
+    }
+    
+    func userToDisplay(request: Home.UserToDisplay.Request) {
+        userToDisplay = users[request.index]
+        presenter?.presentUserToDisplay()
     }
 }

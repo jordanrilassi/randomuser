@@ -9,6 +9,7 @@ import UIKit
 protocol HomePresentationLogic
 {
     func presentUsers(response: Home.Users.Response)
+    func presentUserToDisplay()
 }
 
 class HomePresenter: HomePresentationLogic
@@ -22,5 +23,9 @@ class HomePresenter: HomePresentationLogic
         let userViewModels = response.users.map { UserViewModel(user: $0) }
         let viewModel = Home.Users.ViewModel(usersViewModel: userViewModels)
         viewController?.displayUsers(viewModel: viewModel)
+    }
+    
+    func presentUserToDisplay() {
+        viewController?.displayUserToDisplay()
     }
 }
