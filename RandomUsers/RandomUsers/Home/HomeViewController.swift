@@ -66,15 +66,12 @@ class HomeViewController: UIViewController, HomeDisplayLogic
         title = "Random Users"
         view.backgroundColor = .white
         
-        displayLoader()
         setupCollectionView()
         loadUserBatch()
     }
     
-    private var activityIndicator: UIActivityIndicatorView?
     private var collectionView: UICollectionView?
     private var isBatchLoading = false
-    private var isReloadingAllUsers = false
     private var users: [UserViewModel] = []
     
     private func setupCollectionView() {
@@ -90,28 +87,15 @@ class HomeViewController: UIViewController, HomeDisplayLogic
         collectionView?.delegate = self
         collectionView?.dataSource = self
         collectionView?.alwaysBounceVertical = true
-        collectionView?.isHidden = true
         
         let refresher = UIRefreshControl()
         refresher.addTarget(self, action: #selector(reloadAllUsers), for: .valueChanged)
         
         collectionView?.refreshControl = refresher
+        collectionView?.refreshControl?.beginRefreshing()
         
         guard let collectionView = collectionView else { return }
         view.addSubview(collectionView)
-    }
-    
-    private func displayLoader() {
-        if activityIndicator == nil {
-            activityIndicator = UIActivityIndicatorView()
-            activityIndicator?.center = view.center
-            activityIndicator?.startAnimating()
-            view.addSubview(activityIndicator!)
-        }
-    }
-    
-    private func hideLoader() {
-        activityIndicator?.removeFromSuperview()
     }
     
     private func loadUserBatch()
@@ -121,20 +105,17 @@ class HomeViewController: UIViewController, HomeDisplayLogic
     }
     
     @objc private func reloadAllUsers() {
-        print("refresh")
         isBatchLoading = true
-        isReloadingAllUsers = true
         interactor?.reloadAllUsers()
     }
     
     func displayUsers(viewModel: Home.Users.ViewModel)
     {
-        collectionView?.isHidden = false
-        if users.isEmpty || isReloadingAllUsers {
+        if users.isEmpty || collectionView?.refreshControl?.isRefreshing == true {
             users = viewModel.usersViewModel
             collectionView?.reloadData()
             isBatchLoading = false
-            isReloadingAllUsers = false
+            collectionView?.refreshControl?.endRefreshing()
         } else {
             var newIndexPaths: [IndexPath] = []
             for index in 1...viewModel.usersViewModel.count {
@@ -148,7 +129,6 @@ class HomeViewController: UIViewController, HomeDisplayLogic
                 self?.collectionView?.insertItems(at: newIndexPaths)
             }, completion: { [weak self] _ in
                 self?.isBatchLoading = false
-                self?.collectionView?.refreshControl?.endRefreshing()
             })
         }
     }
@@ -156,7 +136,7 @@ class HomeViewController: UIViewController, HomeDisplayLogic
 
 extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        users.count + 1
+        users.isEmpty ? 0 : users.count + 1
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
