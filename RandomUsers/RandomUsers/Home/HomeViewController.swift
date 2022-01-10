@@ -63,10 +63,15 @@ class HomeViewController: UIViewController, HomeDisplayLogic
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        title = "Random Users"
+        view.backgroundColor = .white
+        
+        displayLoader()
         setupCollectionView()
         loadFirstUsers()
     }
     
+    private var activityIndicator: UIActivityIndicatorView?
     private var collectionView: UICollectionView?
     private var users: [UserViewModel] = []
     
@@ -81,9 +86,26 @@ class HomeViewController: UIViewController, HomeDisplayLogic
         
         collectionView?.delegate = self
         collectionView?.dataSource = self
+        collectionView?.alwaysBounceVertical = true
+        collectionView?.isHidden = true
         
         guard let collectionView = collectionView else { return }
         view.addSubview(collectionView)
+    }
+    
+    private func displayLoader() {
+        if activityIndicator == nil {
+            activityIndicator = UIActivityIndicatorView()
+            activityIndicator?.center = view.center
+            activityIndicator?.startAnimating()
+            view.addSubview(activityIndicator!)
+        }
+        
+        activityIndicator?.isHidden = false
+    }
+    
+    private func hideLoader() {
+        activityIndicator?.isHidden = true
     }
     
     private func loadFirstUsers()
@@ -93,6 +115,7 @@ class HomeViewController: UIViewController, HomeDisplayLogic
     
     func displayUsers(viewModel: Home.Users.ViewModel)
     {
+        collectionView?.isHidden = false
         users = viewModel.usersViewModel
         collectionView?.reloadData()
     }

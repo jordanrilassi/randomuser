@@ -16,16 +16,26 @@ final class HomeUserCell: UICollectionViewCell {
     }
     
     var stackView: UIStackView?
+    var thumbnailView: UIImageView?
     var nameLabel: UILabel?
     
     private func setupViews() {
+        guard let userViewModel = userViewModel else { return }
+
+        thumbnailView = UIImageView()
+        thumbnailView?.contentMode = .scaleAspectFit
+        if let url = URL(string: userViewModel.picture.thumbnail) {
+            thumbnailView?.load(url: url)
+        }
+        
         nameLabel = UILabel()
-        nameLabel?.text = userViewModel?.fullname
+        nameLabel?.text = userViewModel.fullname
         
         stackView = UIStackView(frame: self.bounds)
         stackView?.axis = .horizontal
         stackView?.alignment = .fill
-        stackView?.distribution = .fill
+        stackView?.distribution = .fillProportionally
+        stackView?.addArrangedSubview(thumbnailView!)
         stackView?.addArrangedSubview(nameLabel!)
         
         addSubview(stackView!)
