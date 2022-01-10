@@ -8,7 +8,7 @@ import UIKit
 
 protocol HomePresentationLogic
 {
-    func presentSomething(response: Home.Users.Response)
+    func presentUsers(response: Home.Users.Response)
 }
 
 class HomePresenter: HomePresentationLogic
@@ -17,7 +17,7 @@ class HomePresenter: HomePresentationLogic
     
     // MARK: Do something
     
-    func presentSomething(response: Home.Users.Response)
+    func presentUsers(response: Home.Users.Response)
     {
         let userViewModels = response.users.map { UserViewModel(user: $0) }
         let viewModel = Home.Users.ViewModel(usersViewModel: userViewModels)

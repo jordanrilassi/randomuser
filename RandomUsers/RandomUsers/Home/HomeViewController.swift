@@ -68,11 +68,13 @@ class HomeViewController: UIViewController, HomeDisplayLogic
         
         displayLoader()
         setupCollectionView()
-        loadFirstUsers()
+        loadUserBatch()
     }
     
     private var activityIndicator: UIActivityIndicatorView?
     private var collectionView: UICollectionView?
+    private var refreshControl: UIRefreshControl?
+    private var isBatchLoading = false
     private var users: [UserViewModel] = []
     
     private func setupCollectionView() {
@@ -83,11 +85,18 @@ class HomeViewController: UIViewController, HomeDisplayLogic
         
         collectionView = UICollectionView(frame: self.view.frame, collectionViewLayout: layout)
         collectionView?.register(HomeUserCell.self, forCellWithReuseIdentifier: CollectionViewCells.homeUserCell.rawValue)
+        collectionView?.register(ActivityIndicatorCell.self, forCellWithReuseIdentifier: CollectionViewCells.activityIndicatorCell.rawValue)
         
         collectionView?.delegate = self
         collectionView?.dataSource = self
         collectionView?.alwaysBounceVertical = true
         collectionView?.isHidden = true
+        
+        let refresher = UIRefreshControl()
+        refresher.addTarget(self, action: #selector(reloadAllUsers), for: .valueChanged)
+        
+        refreshControl = refresher
+        collectionView?.addSubview(refreshControl!)
         
         guard let collectionView = collectionView else { return }
         view.addSubview(collectionView)
@@ -100,38 +109,62 @@ class HomeViewController: UIViewController, HomeDisplayLogic
             activityIndicator?.startAnimating()
             view.addSubview(activityIndicator!)
         }
-        
-        activityIndicator?.isHidden = false
     }
     
     private func hideLoader() {
-        activityIndicator?.isHidden = true
+        activityIndicator?.removeFromSuperview()
     }
     
-    private func loadFirstUsers()
+    private func loadUserBatch()
     {
+        isBatchLoading = true
         interactor?.loadUserBatch()
+    }
+    
+    @objc private func reloadAllUsers() {
+        print("refresh")
+        isBatchLoading = true
+        interactor?.reloadAllUsers()
     }
     
     func displayUsers(viewModel: Home.Users.ViewModel)
     {
+        isBatchLoading = false
         collectionView?.isHidden = false
         users = viewModel.usersViewModel
         collectionView?.reloadData()
+        refreshControl?.endRefreshing()
     }
 }
 
 extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        users.count
+        users.count + 1
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let homeUserCell = collectionView.dequeueReusableCell(withReuseIdentifier: CollectionViewCells.homeUserCell.rawValue, for: indexPath) as? HomeUserCell else {
-            return UICollectionViewCell()
+        guard indexPath.row != users.count else {
+            return loadActivityIndicatorCell(collectionView: collectionView, cellForItemAt: indexPath)
         }
+        
+        return loadHomeUserCell(collectionView: collectionView, cellForItemAt: indexPath)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        if indexPath.row == users.count, !isBatchLoading {
+            loadUserBatch()
+        }
+    }
+    
+    private func loadActivityIndicatorCell(collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> ActivityIndicatorCell {
+        let activityIndicatorCell = collectionView.dequeueReusableCell(withReuseIdentifier: CollectionViewCells.activityIndicatorCell.rawValue, for: indexPath) as? ActivityIndicatorCell ?? ActivityIndicatorCell()
+        return activityIndicatorCell
+    }
+    
+    private func loadHomeUserCell(collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> HomeUserCell {
+        let homeUserCell = collectionView.dequeueReusableCell(withReuseIdentifier: CollectionViewCells.homeUserCell.rawValue, for: indexPath) as? HomeUserCell ?? HomeUserCell()
         let userViewModel = users[indexPath.row]
-        homeUserCell.userViewModel = userViewModel
+        homeUserCell.setupView(with: userViewModel)
         return homeUserCell
     }
 }

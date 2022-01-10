@@ -15,4 +15,5 @@ struct Environment {
 
 enum CollectionViewCells: String {
     case homeUserCell = "HomeUserCell"
+    case activityIndicatorCell = "ActivityIndicatorCell"
 }

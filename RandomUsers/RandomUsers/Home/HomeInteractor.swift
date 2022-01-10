@@ -9,6 +9,7 @@ import UIKit
 protocol HomeBusinessLogic
 {
     func loadUserBatch()
+    func reloadAllUsers()
 }
 
 protocol HomeDataStore
@@ -45,12 +46,17 @@ class HomeInteractor: HomeBusinessLogic, HomeDataStore
                 
                 guard let users = self?.users else { return }
                 let response = Home.Users.Response(users: users)
-                self?.presenter?.presentSomething(response: response)
+                self?.presenter?.presentUsers(response: response)
             case .failure(_):
                 // Hanlde error
                 break
             }
         }
         apiCancellable = cancellable
+    }
+    
+    func reloadAllUsers() {
+        users.removeAll()
+        loadUserBatch()
     }
 }
