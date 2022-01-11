@@ -15,11 +15,11 @@ enum UserAPI: API {
     }
     
     var baseURLPath: String {
-        Environment.hostBaseURLPath
+        Environment.hostBaseURLPath.rawValue
     }
     
     var baseURL: URL {
-        URL(string: Environment.hostBaseURLPath)!
+        URL(string: Environment.hostBaseURLPath.rawValue)!
     }
     
     var path: String {

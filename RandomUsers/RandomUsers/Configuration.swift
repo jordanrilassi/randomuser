@@ -7,13 +7,15 @@
 
 import Foundation
 
-struct Environment {
-    static var hostBaseURLPath: String {
-        "https://randomuser.me/api/"
-    }
+enum Environment: String {
+    case hostBaseURLPath = "https://randomuser.me/api/"
 }
 
 enum CollectionViewCells: String {
     case homeUserCell = "HomeUserCell"
     case activityIndicatorCell = "ActivityIndicatorCell"
+}
+
+enum UserDefaultsKeys: String {
+    case users = "users"
 }

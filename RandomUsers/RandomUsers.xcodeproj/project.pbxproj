@@ -15,6 +15,9 @@
 		09583A4B278C81700023C25C /* UserDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09583A45278C81700023C25C /* UserDetailViewController.swift */; };
 		09583A4C278C81700023C25C /* UserDetailInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09583A46278C81700023C25C /* UserDetailInteractor.swift */; };
 		09583A4F278C85FE0023C25C /* UserDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09583A4E278C85FE0023C25C /* UserDetailViewModel.swift */; };
+		095F70CE278DBEB200299EEC /* CustomError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 095F70CD278DBEB200299EEC /* CustomError.swift */; };
+		095F70D2278DBF8100299EEC /* ReachabilityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 095F70D1278DBF8100299EEC /* ReachabilityManager.swift */; };
+		095F70D3278DC05200299EEC /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 095F70D0278DBF7500299EEC /* Reachability.swift */; };
 		0986DE5D27870386006FB672 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0986DE5C27870386006FB672 /* AppDelegate.swift */; };
 		0986DE5F27870386006FB672 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0986DE5E27870386006FB672 /* SceneDelegate.swift */; };
 		0986DE6127870386006FB672 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0986DE6027870386006FB672 /* ViewController.swift */; };
@@ -33,7 +36,6 @@
 		0986DEE027883413006FB672 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0986DEDA27883413006FB672 /* HomeViewController.swift */; };
 		0986DEE127883413006FB672 /* HomeInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0986DEDB27883413006FB672 /* HomeInteractor.swift */; };
 		0986DEE327883790006FB672 /* UserAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0986DEE227883790006FB672 /* UserAPI.swift */; };
-		0986DEE5278837BA006FB672 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0986DEE4278837BA006FB672 /* API.swift */; };
 		0986DEE727883878006FB672 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0986DEE627883878006FB672 /* Configuration.swift */; };
 		0986DEE92788442E006FB672 /* UserAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0986DEE82788442E006FB672 /* UserAPIService.swift */; };
 		0986DEEB27884499006FB672 /* GetUsersRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0986DEEA27884499006FB672 /* GetUsersRequest.swift */; };
@@ -69,6 +71,9 @@
 		09583A45278C81700023C25C /* UserDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailViewController.swift; sourceTree = "<group>"; };
 		09583A46278C81700023C25C /* UserDetailInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailInteractor.swift; sourceTree = "<group>"; };
 		09583A4E278C85FE0023C25C /* UserDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailViewModel.swift; sourceTree = "<group>"; };
+		095F70CD278DBEB200299EEC /* CustomError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomError.swift; sourceTree = "<group>"; };
+		095F70D0278DBF7500299EEC /* Reachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
+		095F70D1278DBF8100299EEC /* ReachabilityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReachabilityManager.swift; sourceTree = "<group>"; };
 		0986DE5927870386006FB672 /* RandomUsers.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RandomUsers.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0986DE5C27870386006FB672 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0986DE5E27870386006FB672 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -91,7 +96,6 @@
 		0986DEDA27883413006FB672 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		0986DEDB27883413006FB672 /* HomeInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeInteractor.swift; sourceTree = "<group>"; };
 		0986DEE227883790006FB672 /* UserAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAPI.swift; sourceTree = "<group>"; };
-		0986DEE4278837BA006FB672 /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		0986DEE627883878006FB672 /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
 		0986DEE82788442E006FB672 /* UserAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAPIService.swift; sourceTree = "<group>"; };
 		0986DEEA27884499006FB672 /* GetUsersRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetUsersRequest.swift; sourceTree = "<group>"; };
@@ -129,7 +133,10 @@
 		09583A38278C35510023C25C /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				095F70D1278DBF8100299EEC /* ReachabilityManager.swift */,
 				09583A39278C35770023C25C /* UIImageView+Extension.swift */,
+				095F70CD278DBEB200299EEC /* CustomError.swift */,
+				095F70CF278DBF7100299EEC /* Libs */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -162,6 +169,14 @@
 				09583A4E278C85FE0023C25C /* UserDetailViewModel.swift */,
 			);
 			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		095F70CF278DBF7100299EEC /* Libs */ = {
+			isa = PBXGroup;
+			children = (
+				095F70D0278DBF7500299EEC /* Reachability.swift */,
+			);
+			path = Libs;
 			sourceTree = "<group>";
 		};
 		0986DE5027870386006FB672 = {
@@ -240,7 +255,6 @@
 			children = (
 				0986DECF2787566F006FB672 /* APIService.swift */,
 				0986DEE227883790006FB672 /* UserAPI.swift */,
-				0986DEE4278837BA006FB672 /* API.swift */,
 				0986DEE82788442E006FB672 /* UserAPIService.swift */,
 			);
 			path = API;
@@ -426,8 +440,10 @@
 				09583A4C278C81700023C25C /* UserDetailInteractor.swift in Sources */,
 				0986DED02787566F006FB672 /* APIService.swift in Sources */,
 				09583A49278C81700023C25C /* UserDetailRouter.swift in Sources */,
+				095F70CE278DBEB200299EEC /* CustomError.swift in Sources */,
 				0986DEEB27884499006FB672 /* GetUsersRequest.swift in Sources */,
 				0986DE6127870386006FB672 /* ViewController.swift in Sources */,
+				095F70D3278DC05200299EEC /* Reachability.swift in Sources */,
 				0986DEE327883790006FB672 /* UserAPI.swift in Sources */,
 				0986DEE127883413006FB672 /* HomeInteractor.swift in Sources */,
 				0986DED5278759B8006FB672 /* User.swift in Sources */,
@@ -435,7 +451,6 @@
 				0986DEE727883878006FB672 /* Configuration.swift in Sources */,
 				09583A4B278C81700023C25C /* UserDetailViewController.swift in Sources */,
 				09583A3A278C35770023C25C /* UIImageView+Extension.swift in Sources */,
-				0986DEE5278837BA006FB672 /* API.swift in Sources */,
 				0986DE5D27870386006FB672 /* AppDelegate.swift in Sources */,
 				09583A4F278C85FE0023C25C /* UserDetailViewModel.swift in Sources */,
 				0986DEE92788442E006FB672 /* UserAPIService.swift in Sources */,
@@ -448,6 +463,7 @@
 				0986DEDE27883413006FB672 /* HomeRouter.swift in Sources */,
 				0986DEF927888473006FB672 /* UserViewModel.swift in Sources */,
 				0986DE5F27870386006FB672 /* SceneDelegate.swift in Sources */,
+				095F70D2278DBF8100299EEC /* ReachabilityManager.swift in Sources */,
 				09583A4A278C81700023C25C /* UserDetailModels.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

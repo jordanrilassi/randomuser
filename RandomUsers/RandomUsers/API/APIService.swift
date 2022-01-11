@@ -11,6 +11,22 @@ import Combine
 typealias APIServiceCompletion<T> = (APIServiceResult<T>) -> Void
 typealias APIServiceResult<T> = Result<T, Error>
 
+enum HTTPMethod: String {
+    case GET
+    case POST
+    case PUT
+}
+
+protocol API {
+    var method: HTTPMethod { get }
+    var baseURLPath: String { get }
+    var baseURL: URL { get }
+    var path: String { get }
+    var url: URL? { get }
+    var request: URLRequest? { get }
+    var timeout: TimeInterval { get }
+}
+
 protocol APIService {
     func performRequest<T: Codable>(request: URLRequest, callback: @escaping APIServiceCompletion<T>) -> Cancellable?
 }
@@ -18,6 +34,10 @@ protocol APIService {
 extension APIService {
     
     func performRequest<T: Codable>(request: URLRequest, callback: @escaping APIServiceCompletion<T>) -> Cancellable? {
+        guard ReachabilityManager.shared.reachabilityStatus != .notReachable else {
+            callback(.failure(CustomError.noNetwork))
+            return nil
+        }
         let repoPublisher = URLSession.shared.dataTaskPublisher(for: request)
             .tryMap { output in
                 guard let httpResponse = output.response as? HTTPURLResponse,

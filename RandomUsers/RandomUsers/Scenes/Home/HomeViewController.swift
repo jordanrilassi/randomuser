@@ -9,6 +9,7 @@ import UIKit
 protocol HomeDisplayLogic: AnyObject
 {
     func displayUsers(viewModel: Home.Users.ViewModel)
+    func displayError(viewModel: Home.Error.ViewModel)
     func displayUserToDisplay()
 }
 
@@ -120,6 +121,16 @@ class HomeViewController: UIViewController, HomeDisplayLogic
                 self?.isBatchLoading = false
             })
         }
+    }
+    
+    func displayError(viewModel: Home.Error.ViewModel) {
+        let alertVC = UIAlertController(title: viewModel.errorViewModel.title, message: viewModel.errorViewModel.message, preferredStyle: .alert)
+        let alertAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
+        alertVC.addAction(alertAction)
+        present(alertVC, animated: true, completion: { [weak self] in
+            self?.isBatchLoading = false
+            self?.collectionView?.refreshControl?.endRefreshing()
+        })
     }
     
     func displayUserToDisplay() {

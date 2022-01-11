@@ -18,6 +18,20 @@ enum Home {
         }
     }
     
+    enum Error {
+        struct Response {
+            let error: CustomError
+        }
+        struct ViewModel {
+            let errorViewModel: ErrorViewModel
+            
+            struct ErrorViewModel {
+                let title: String
+                let message: String
+            }
+        }
+    }
+    
     enum UserToDisplay {
         struct Request {
             let index: Int

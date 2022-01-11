@@ -51,11 +51,17 @@ class HomeInteractor: HomeBusinessLogic, HomeDataStore
             case .success(let response):
                 self?.users.append(contentsOf: response.results)
                 self?.apiCancellable = nil
+                self?.saveUsersLocally()
                 
                 let response = Home.Users.Response(users: response.results)
                 self?.presenter?.presentUsers(response: response)
-            case .failure(_):
-                // Hanlde error
+            case .failure(let error):
+                let customError = error as? CustomError ?? CustomError.unknownError
+                if self?.users.isEmpty == true && customError == .noNetwork {
+                    self?.loadLocalUsers()
+                }
+                let response = Home.Error.Response(error: customError)
+                self?.presenter?.presentError(response: response)
                 break
             }
         }
@@ -70,5 +76,33 @@ class HomeInteractor: HomeBusinessLogic, HomeDataStore
     func userToDisplay(request: Home.UserToDisplay.Request) {
         userToDisplay = users[request.index]
         presenter?.presentUserToDisplay()
+    }
+    
+    private func loadLocalUsers() {
+        users = getLocalUsers()
+        let response = Home.Users.Response(users: users)
+        presenter?.presentUsers(response: response)
+    }
+    
+    private func saveUsersLocally() {
+        do {
+            let encoder = JSONEncoder()
+            let data = try encoder.encode(users)
+            UserDefaults.standard.set(data, forKey: UserDefaultsKeys.users.rawValue)
+        } catch {
+            print("Unable to encode users : \(error)")
+        }
+    }
+    
+    private func getLocalUsers() -> [User] {
+        guard let data = UserDefaults.standard.data(forKey: UserDefaultsKeys.users.rawValue) else { return [] }
+        do {
+            let decoder = JSONDecoder()
+            let localUsers = try decoder.decode([User].self, from: data)
+            return localUsers
+        } catch {
+            print("Unable to decode users : \(error)")
+            return []
+        }
     }
 }
