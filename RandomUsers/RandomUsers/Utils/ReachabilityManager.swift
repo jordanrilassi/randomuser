@@ -19,7 +19,7 @@ class ReachabilityManager {
     let reachability: Reachability?
     var reachabilityStatus: ReachabilityStatus = .notReachable
     
-    fileprivate init() {
+    private init() {
         reachability = try? Reachability()
         reachability?.whenReachable = { [weak self] reachability in
             print("reachable")

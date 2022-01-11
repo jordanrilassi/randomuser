@@ -24,10 +24,10 @@ class HomeInteractor: HomeBusinessLogic, HomeDataStore
     var worker: HomeWorker
     var userToDisplay: User?
     
-    fileprivate var users: [User] = []
-    fileprivate var batchUsers: [User] = []
-    fileprivate let userBatch = 10
-    fileprivate var apiCancellable: Any?
+    private var users: [User] = []
+    private var batchUsers: [User] = []
+    private let userBatch = 10
+    private var apiCancellable: Any?
     
     init(userService: UserAPIServiceProtocol) {
         worker = HomeWorker(userService: userService)
@@ -41,7 +41,7 @@ class HomeInteractor: HomeBusinessLogic, HomeDataStore
         }
     }
     
-    // MARK: Do something
+    // MARK: Load Users
     
     func loadUserBatch()
     {
@@ -77,6 +77,8 @@ class HomeInteractor: HomeBusinessLogic, HomeDataStore
         userToDisplay = users[request.index]
         presenter?.presentUserToDisplay()
     }
+    
+    // MARK: Private Methods
     
     private func loadLocalUsers() {
         users = getLocalUsers()
