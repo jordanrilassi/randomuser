@@ -17,7 +17,7 @@ enum ReachabilityStatus {
 class ReachabilityManager {
     static let shared = ReachabilityManager()
     let reachability: Reachability?
-    var reachabilityStatus: ReachabilityStatus = .notReachable
+    var reachabilityStatus: ReachabilityStatus = .none
     
     private init() {
         reachability = try? Reachability()

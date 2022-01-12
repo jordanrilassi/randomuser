@@ -11,20 +11,22 @@ struct UserDetailViewModel {
     let gender: String
     let title: String
     let fullname: String
+    let infoUser: String
+    let address: String
     let email: String
     let phone: String
     let cell: String
-    let age: String
-    let picture: Picture
+    let pictureUrl: URL?
     
     init(user: User) {
         gender = user.gender
         title = user.name.title
         fullname = "\(user.name.first) \(user.name.last)"
+        infoUser = "\(user.name.title) \(fullname), \(user.dob.age) ans"
+        address = "\(user.location.street.number) \(user.location.street.name)\n\(user.location.postcode) \(user.location.city)\n\(user.location.country)"
         email = user.email
         phone = user.phone
         cell = user.cell
-        age = "\(user.dob.age) ans"
-        picture = user.picture
+        pictureUrl = URL(string: user.picture.large)
     }
 }
