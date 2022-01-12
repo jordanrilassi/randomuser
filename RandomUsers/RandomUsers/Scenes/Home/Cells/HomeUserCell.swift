@@ -16,13 +16,17 @@ final class HomeUserCell: UICollectionViewCell {
         thumbnailView = UIImageView()
         thumbnailView?.tintColor = .gray
         thumbnailView?.contentMode = .scaleAspectFit
-
+        thumbnailView?.image = UIImage(systemName: "person.circle")
+        thumbnailView?.translatesAutoresizingMaskIntoConstraints = false
+        thumbnailView?.widthAnchor.constraint(equalToConstant: 50).isActive = true
+        thumbnailView?.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        
         nameLabel = UILabel()
 
         stackView = UIStackView(frame: CGRect(x: 10, y: bounds.origin.y, width: bounds.size.width - 10, height: bounds.size.height))
         stackView?.axis = .horizontal
         stackView?.alignment = .fill
-        stackView?.distribution = .fill
+        stackView?.distribution = .fillProportionally
         stackView?.spacing = 10
         stackView?.addArrangedSubview(thumbnailView!)
         stackView?.addArrangedSubview(nameLabel!)
@@ -40,10 +44,10 @@ final class HomeUserCell: UICollectionViewCell {
     var nameLabel: UILabel?
     
     func setupView(with userViewModel: UserViewModel) {
-        thumbnailView?.image = UIImage(systemName: "person.circle")
-
         if let url = URL(string: userViewModel.picture.thumbnail) {
-            thumbnailView?.load(url: url)
+            thumbnailView?.load(url: url) { [weak self] in
+                self?.thumbnailView?.roundedCorner()
+            }
         }
         
         nameLabel?.text = userViewModel.fullname

@@ -57,7 +57,53 @@ class UserDetailViewController: UIViewController, UserDetailDisplayLogic
         loadUserDetail()
     }
     
-    func setupView() {
+    // MARK: Load User Detail
+    
+    var userDetailViewModel: UserDetailViewModel?
+    
+    var scrollView = UIScrollView()
+    var mainStackView = UIStackView()
+    var userPictureStackView = UIStackView()
+    var userPicture = UIImageView()
+    var userInfoLabel = UILabel()
+    var addressLabel = UILabel()
+    var addressContentLabel = UILabel()
+    var contactMeLabel = UILabel()
+    var emailButton = UIButton()
+    var phoneButton = UIButton()
+    var cellButton = UIButton()
+    
+    func loadUserDetail()
+    {
+        interactor?.getUserDetail()
+    }
+    
+    func displayUserDetail(viewModel: UserDetail.UserDetailModel.ViewModel)
+    {
+        userDetailViewModel = viewModel.userDetailViewModel
+        title = viewModel.userDetailViewModel.fullname
+        if let imageUrl = viewModel.userDetailViewModel.pictureUrl {
+            userPicture.load(url: imageUrl) { [weak self] in
+                self?.userPicture.roundedCorner()
+            }
+        }
+        userInfoLabel.text = viewModel.userDetailViewModel.infoUser
+        addressLabel.text = "Adresse :"
+        addressLabel.font = .boldSystemFont(ofSize: addressLabel.font.pointSize)
+        addressContentLabel.text = viewModel.userDetailViewModel.address
+        contactMeLabel.text = "Contact :"
+        contactMeLabel.font = .boldSystemFont(ofSize: contactMeLabel.font.pointSize)
+        emailButton.setTitle(viewModel.userDetailViewModel.email, for: .normal)
+        emailButton.sizeToFit()
+        phoneButton.setTitle(viewModel.userDetailViewModel.phone, for: .normal)
+        cellButton.setTitle(viewModel.userDetailViewModel.cell, for: .normal)
+    }
+}
+
+// MARK: Setup UI Methods
+
+extension UserDetailViewController {
+    private func setupView() {
         view.addSubview(scrollView)
         scrollView.addSubview(mainStackView)
         
@@ -114,50 +160,12 @@ class UserDetailViewController: UIViewController, UserDetailDisplayLogic
         emailButton.setTitleColor(.blue, for: .normal)
         phoneButton.setTitleColor(.blue, for: .normal)
         cellButton.setTitleColor(.blue, for: .normal)
+        
+        emailButton.addTarget(self, action: #selector(emailButtonTouched), for: .touchUpInside)
+        phoneButton.addTarget(self, action: #selector(phoneButtonTouched), for: .touchUpInside)
+        cellButton.addTarget(self, action: #selector(cellButtonTouched), for: .touchUpInside)
     }
     
-    // MARK: Load User Detail
-    
-    var scrollView = UIScrollView()
-    var mainStackView = UIStackView()
-    var userPictureStackView = UIStackView()
-    var userPicture = UIImageView()
-    var userInfoLabel = UILabel()
-    var addressLabel = UILabel()
-    var addressContentLabel = UILabel()
-    var contactMeLabel = UILabel()
-    var emailButton = UIButton()
-    var phoneButton = UIButton()
-    var cellButton = UIButton()
-    
-    func loadUserDetail()
-    {
-        interactor?.getUserDetail()
-    }
-    
-    func displayUserDetail(viewModel: UserDetail.UserDetailModel.ViewModel)
-    {
-        title = viewModel.userDetailViewModel.fullname
-        if let imageUrl = viewModel.userDetailViewModel.pictureUrl {
-            userPicture.load(url: imageUrl)
-            userPicture.load(url: imageUrl) { [weak self] in
-                self?.userPicture.roundedCorner()
-            }
-        }
-        userInfoLabel.text = viewModel.userDetailViewModel.infoUser
-        addressLabel.text = "Adresse :"
-        addressLabel.font = .boldSystemFont(ofSize: addressLabel.font.pointSize)
-        addressContentLabel.text = viewModel.userDetailViewModel.address
-        contactMeLabel.text = "Contact :"
-        contactMeLabel.font = .boldSystemFont(ofSize: contactMeLabel.font.pointSize)
-        emailButton.setTitle(viewModel.userDetailViewModel.email, for: .normal)
-        emailButton.sizeToFit()
-        phoneButton.setTitle(viewModel.userDetailViewModel.phone, for: .normal)
-        cellButton.setTitle(viewModel.userDetailViewModel.cell, for: .normal)
-    }
-}
-
-extension UserDetailViewController {
     private func applyConstraints() {
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         scrollView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
@@ -175,5 +183,27 @@ extension UserDetailViewController {
         
         userPicture.widthAnchor.constraint(equalToConstant: 150).isActive = true
         userPicture.heightAnchor.constraint(equalToConstant: 150).isActive = true
+    }
+}
+
+// MARK: Buttons methods
+
+extension UserDetailViewController {
+    @objc func emailButtonTouched() {
+        guard let email = userDetailViewModel?.email else { return }
+        guard let url = URL(string: "mailto:\(email)") else { return }
+        UIApplication.shared.open(url)
+    }
+    
+    @objc func phoneButtonTouched() {
+        guard let phone = userDetailViewModel?.phone else { return }
+        guard let number = URL(string: "tel://" + phone) else { return }
+        UIApplication.shared.open(number)
+    }
+    
+    @objc func cellButtonTouched() {
+        guard let cell = userDetailViewModel?.cell else { return }
+        guard let number = URL(string: "tel://" + cell) else { return }
+        UIApplication.shared.open(number)
     }
 }
