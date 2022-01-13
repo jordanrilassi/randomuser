@@ -25,8 +25,6 @@
 		0986DE662787038A006FB672 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0986DE652787038A006FB672 /* Assets.xcassets */; };
 		0986DE692787038A006FB672 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0986DE672787038A006FB672 /* LaunchScreen.storyboard */; };
 		0986DE742787038A006FB672 /* RandomUsersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0986DE732787038A006FB672 /* RandomUsersTests.swift */; };
-		0986DE7E2787038A006FB672 /* RandomUsersUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0986DE7D2787038A006FB672 /* RandomUsersUITests.swift */; };
-		0986DE802787038A006FB672 /* RandomUsersUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0986DE7F2787038A006FB672 /* RandomUsersUITestsLaunchTests.swift */; };
 		0986DED02787566F006FB672 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0986DECF2787566F006FB672 /* APIService.swift */; };
 		0986DED5278759B8006FB672 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0986DED4278759B8006FB672 /* User.swift */; };
 		0986DEDC27883413006FB672 /* HomePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0986DED627883413006FB672 /* HomePresenter.swift */; };
@@ -85,8 +83,6 @@
 		0986DE6F2787038A006FB672 /* RandomUsersTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RandomUsersTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0986DE732787038A006FB672 /* RandomUsersTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomUsersTests.swift; sourceTree = "<group>"; };
 		0986DE792787038A006FB672 /* RandomUsersUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RandomUsersUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		0986DE7D2787038A006FB672 /* RandomUsersUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomUsersUITests.swift; sourceTree = "<group>"; };
-		0986DE7F2787038A006FB672 /* RandomUsersUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomUsersUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		0986DECF2787566F006FB672 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		0986DED4278759B8006FB672 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		0986DED627883413006FB672 /* HomePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePresenter.swift; sourceTree = "<group>"; };
@@ -184,7 +180,6 @@
 			children = (
 				0986DE5B27870386006FB672 /* RandomUsers */,
 				0986DE722787038A006FB672 /* RandomUsersTests */,
-				0986DE7C2787038A006FB672 /* RandomUsersUITests */,
 				0986DE5A27870386006FB672 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -224,15 +219,6 @@
 				0986DE732787038A006FB672 /* RandomUsersTests.swift */,
 			);
 			path = RandomUsersTests;
-			sourceTree = "<group>";
-		};
-		0986DE7C2787038A006FB672 /* RandomUsersUITests */ = {
-			isa = PBXGroup;
-			children = (
-				0986DE7D2787038A006FB672 /* RandomUsersUITests.swift */,
-				0986DE7F2787038A006FB672 /* RandomUsersUITestsLaunchTests.swift */,
-			);
-			path = RandomUsersUITests;
 			sourceTree = "<group>";
 		};
 		0986DEB527875005006FB672 /* Home */ = {
@@ -480,8 +466,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0986DE802787038A006FB672 /* RandomUsersUITestsLaunchTests.swift in Sources */,
-				0986DE7E2787038A006FB672 /* RandomUsersUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -643,6 +627,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = R3M8U4TB95;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = RandomUsers/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -670,6 +655,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = R3M8U4TB95;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = RandomUsers/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

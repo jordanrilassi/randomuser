@@ -64,42 +64,6 @@ class HomeViewController: UIViewController, HomeDisplayLogic
     private var isBatchLoading = false
     private var users: [UserViewModel] = []
     
-    private func setupCollectionView() {
-        let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .vertical
-        layout.sectionInset = UIEdgeInsets(top: 20, left: 10, bottom: 10, right: 10)
-        layout.itemSize = CGSize(width: self.view.frame.size.width, height: 60)
-        layout.minimumLineSpacing = 20
-        
-        collectionView = UICollectionView(frame: self.view.frame, collectionViewLayout: layout)
-        collectionView?.register(HomeUserCell.self, forCellWithReuseIdentifier: CollectionViewCells.homeUserCell.rawValue)
-        collectionView?.register(ActivityIndicatorCell.self, forCellWithReuseIdentifier: CollectionViewCells.activityIndicatorCell.rawValue)
-        
-        collectionView?.delegate = self
-        collectionView?.dataSource = self
-        collectionView?.alwaysBounceVertical = true
-        
-        let refresher = UIRefreshControl()
-        refresher.addTarget(self, action: #selector(reloadAllUsers), for: .valueChanged)
-        
-        collectionView?.refreshControl = refresher
-        collectionView?.refreshControl?.beginRefreshing()
-        
-        guard let collectionView = collectionView else { return }
-        view.addSubview(collectionView)
-    }
-    
-    private func loadUserBatch()
-    {
-        isBatchLoading = true
-        interactor?.loadUserBatch()
-    }
-    
-    @objc private func reloadAllUsers() {
-        isBatchLoading = true
-        interactor?.reloadAllUsers()
-    }
-    
     func displayUsers(viewModel: Home.Users.ViewModel)
     {
         if users.isEmpty || collectionView?.refreshControl?.isRefreshing == true {
@@ -137,9 +101,49 @@ class HomeViewController: UIViewController, HomeDisplayLogic
     func displayUserToDisplay() {
         router?.routeToUserToDisplay()
     }
+    
+    // MARK: Private Methods
+    
+    private func loadUserBatch()
+    {
+        isBatchLoading = true
+        interactor?.loadUserBatch()
+    }
+    
+    @objc private func reloadAllUsers() {
+        isBatchLoading = true
+        interactor?.reloadAllUsers()
+    }
 }
 
+// MARK: UICollectionView Methods
+
 extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+    private func setupCollectionView() {
+        let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .vertical
+        layout.sectionInset = UIEdgeInsets(top: 20, left: 10, bottom: 10, right: 10)
+        layout.itemSize = CGSize(width: self.view.frame.size.width, height: 60)
+        layout.minimumLineSpacing = 20
+        
+        collectionView = UICollectionView(frame: self.view.frame, collectionViewLayout: layout)
+        collectionView?.register(HomeUserCell.self, forCellWithReuseIdentifier: CollectionViewCells.homeUserCell.rawValue)
+        collectionView?.register(ActivityIndicatorCell.self, forCellWithReuseIdentifier: CollectionViewCells.activityIndicatorCell.rawValue)
+        
+        collectionView?.delegate = self
+        collectionView?.dataSource = self
+        collectionView?.alwaysBounceVertical = true
+        
+        let refresher = UIRefreshControl()
+        refresher.addTarget(self, action: #selector(reloadAllUsers), for: .valueChanged)
+        
+        collectionView?.refreshControl = refresher
+        collectionView?.refreshControl?.beginRefreshing()
+        
+        guard let collectionView = collectionView else { return }
+        view.addSubview(collectionView)
+    }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         users.isEmpty ? 0 : users.count + 1
     }

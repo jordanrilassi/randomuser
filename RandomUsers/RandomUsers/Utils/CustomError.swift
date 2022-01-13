@@ -10,6 +10,7 @@ import Foundation
 enum CustomError: Error {
     case unknownError
     case noNetwork
+    case failToLoadUsers
     
     var customMessage: String {
         switch self {
@@ -17,6 +18,8 @@ enum CustomError: Error {
             return "Une erreur inconnue s'est produite."
         case .noNetwork:
             return "Pas de connexion réseau."
+        case .failToLoadUsers:
+            return "Erreur lors du chargement des utilisateurs."
         }
     }
 }

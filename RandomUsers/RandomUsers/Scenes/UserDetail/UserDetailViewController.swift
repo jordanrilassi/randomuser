@@ -186,7 +186,7 @@ extension UserDetailViewController {
     }
 }
 
-// MARK: Buttons methods
+// MARK: Buttons Methods
 
 extension UserDetailViewController {
     @objc func emailButtonTouched() {

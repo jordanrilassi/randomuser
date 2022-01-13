@@ -29,8 +29,11 @@ class HomeInteractor: HomeBusinessLogic, HomeDataStore
     private let userBatch = 10
     private var apiCancellable: Any?
     
-    init(userService: UserAPIServiceProtocol) {
+    init(userService: UserAPIServiceProtocol, presenter: HomePresentationLogic? = nil) {
         worker = HomeWorker(userService: userService)
+        if let presenter = presenter {
+            self.presenter = presenter
+        }
     }
     
     private var pageForBatch: Int {
@@ -43,8 +46,7 @@ class HomeInteractor: HomeBusinessLogic, HomeDataStore
     
     // MARK: Load Users
     
-    func loadUserBatch()
-    {
+    func loadUserBatch() {
         let getUsersRequest = GetUsersRequest(page: pageForBatch, count: userBatch)
         let cancellable = worker.loadUserBatch(getUsersRequest) { [weak self] result in
             switch result {
@@ -56,7 +58,7 @@ class HomeInteractor: HomeBusinessLogic, HomeDataStore
                 let response = Home.Users.Response(users: response.results)
                 self?.presenter?.presentUsers(response: response)
             case .failure(let error):
-                let customError = error as? CustomError ?? CustomError.unknownError
+                let customError = error as? CustomError ?? CustomError.failToLoadUsers
                 if self?.users.isEmpty == true && customError == .noNetwork {
                     self?.loadLocalUsers()
                 }
@@ -74,6 +76,11 @@ class HomeInteractor: HomeBusinessLogic, HomeDataStore
     }
     
     func userToDisplay(request: Home.UserToDisplay.Request) {
+        guard users.count > request.index else {
+            let response = Home.Error.Response(error: .unknownError)
+            presenter?.presentError(response: response)
+            return
+        }
         userToDisplay = users[request.index]
         presenter?.presentUserToDisplay()
     }
