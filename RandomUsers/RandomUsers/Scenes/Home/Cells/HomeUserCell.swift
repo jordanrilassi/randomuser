@@ -22,6 +22,16 @@ final class HomeUserCell: UICollectionViewCell {
         thumbnailView?.heightAnchor.constraint(equalToConstant: 50).isActive = true
         
         nameLabel = UILabel()
+        countryLabel = UILabel()
+        countryLabel?.font = .systemFont(ofSize: 12)
+        countryLabel?.textColor = .gray
+        let labelsStackView = UIStackView()
+        labelsStackView.axis = .vertical
+        labelsStackView.addArrangedSubview(nameLabel!)
+        labelsStackView.addArrangedSubview(countryLabel!)
+        labelsStackView.alignment = .fill
+        labelsStackView.distribution = .fillProportionally
+        labelsStackView.spacing = -5
 
         stackView = UIStackView(frame: CGRect(x: 10, y: bounds.origin.y, width: bounds.size.width - 10, height: bounds.size.height))
         stackView?.axis = .horizontal
@@ -29,7 +39,7 @@ final class HomeUserCell: UICollectionViewCell {
         stackView?.distribution = .fillProportionally
         stackView?.spacing = 10
         stackView?.addArrangedSubview(thumbnailView!)
-        stackView?.addArrangedSubview(nameLabel!)
+        stackView?.addArrangedSubview(labelsStackView)
         stackView?.addArrangedSubview(UIView())
         
         addSubview(stackView!)
@@ -42,6 +52,7 @@ final class HomeUserCell: UICollectionViewCell {
     var stackView: UIStackView?
     var thumbnailView: UIImageView?
     var nameLabel: UILabel?
+    var countryLabel: UILabel?
     
     func setupView(with userViewModel: UserViewModel) {
         if let url = URL(string: userViewModel.picture.thumbnail) {
@@ -51,5 +62,7 @@ final class HomeUserCell: UICollectionViewCell {
         }
         
         nameLabel?.text = userViewModel.fullname
+        countryLabel?.text = userViewModel.country
+        countryLabel?.sizeToFit()
     }
 }
