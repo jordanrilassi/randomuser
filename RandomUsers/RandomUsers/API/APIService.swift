@@ -19,7 +19,6 @@ enum HTTPMethod: String {
 
 protocol API {
     var method: HTTPMethod { get }
-    var baseURLPath: String { get }
     var baseURL: URL { get }
     var path: String { get }
     var url: URL? { get }
@@ -34,7 +33,7 @@ protocol APIService {
 extension APIService {
     
     func performRequest<T: Codable>(request: URLRequest, callback: @escaping APIServiceCompletion<T>) -> Cancellable? {
-        guard ReachabilityManager.shared.reachabilityStatus != .notReachable else {
+        if ReachabilityManager.shared.reachabilityStatus == .notReachable || ReachabilityManager.shared.reachabilityStatus == .none {
             callback(.failure(CustomError.noNetwork))
             return nil
         }

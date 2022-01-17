@@ -14,10 +14,6 @@ enum UserAPI: API {
         .GET
     }
     
-    var baseURLPath: String {
-        Environment.hostBaseURLPath.rawValue
-    }
-    
     var baseURL: URL {
         URL(string: Environment.hostBaseURLPath.rawValue)!
     }

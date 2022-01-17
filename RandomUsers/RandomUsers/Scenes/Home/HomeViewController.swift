@@ -57,7 +57,12 @@ class HomeViewController: UIViewController, HomeDisplayLogic
         view.backgroundColor = .white
         
         setupCollectionView()
-        loadUserBatch()
+        
+        // Init Reachability and wait for value to load first User Batch
+        ReachabilityManager.shared.reachabilityCompletion = { [weak self] in
+            ReachabilityManager.shared.reachabilityCompletion = nil
+            self?.loadUserBatch()
+        }
     }
     
     private var collectionView: UICollectionView?
@@ -161,7 +166,6 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("show user")
         let request = Home.UserToDisplay.Request(index: indexPath.row)
         interactor?.userToDisplay(request: request)
     }
