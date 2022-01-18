@@ -49,14 +49,18 @@ final class HomeUserCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func prepareForReuse() {
+        thumbnailView?.image = UIImage(systemName: "person.circle")
+    }
+    
     var stackView: UIStackView?
     var thumbnailView: UIImageView?
     var nameLabel: UILabel?
     var countryLabel: UILabel?
     
     func setupView(with userViewModel: UserViewModel) {
-        if let url = URL(string: userViewModel.picture.thumbnail) {
-            thumbnailView?.load(url: url) { [weak self] in
+        thumbnailView?.load(urlString: userViewModel.picture.thumbnail) { [weak self] in
+            DispatchQueue.main.async {
                 self?.thumbnailView?.roundedCorner()
             }
         }

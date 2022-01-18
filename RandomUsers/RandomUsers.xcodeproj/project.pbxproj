@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0940E3182796CAF000D66A76 /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0940E3172796CAF000D66A76 /* CacheManager.swift */; };
 		09583A3A278C35770023C25C /* UIImageView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09583A39278C35770023C25C /* UIImageView+Extension.swift */; };
 		09583A3C278C3AF70023C25C /* ActivityIndicatorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09583A3B278C3AF70023C25C /* ActivityIndicatorCell.swift */; };
 		09583A47278C81700023C25C /* UserDetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09583A41278C81700023C25C /* UserDetailPresenter.swift */; };
@@ -60,6 +61,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0940E3172796CAF000D66A76 /* CacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheManager.swift; sourceTree = "<group>"; };
 		09583A39278C35770023C25C /* UIImageView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extension.swift"; sourceTree = "<group>"; };
 		09583A3B278C3AF70023C25C /* ActivityIndicatorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicatorCell.swift; sourceTree = "<group>"; };
 		09583A41278C81700023C25C /* UserDetailPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailPresenter.swift; sourceTree = "<group>"; };
@@ -127,6 +129,7 @@
 		09583A38278C35510023C25C /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				0940E3172796CAF000D66A76 /* CacheManager.swift */,
 				095F70D1278DBF8100299EEC /* ReachabilityManager.swift */,
 				09583A39278C35770023C25C /* UIImageView+Extension.swift */,
 				095F70CD278DBEB200299EEC /* CustomError.swift */,
@@ -434,6 +437,7 @@
 				09583A4B278C81700023C25C /* UserDetailViewController.swift in Sources */,
 				09583A3A278C35770023C25C /* UIImageView+Extension.swift in Sources */,
 				0986DE5D27870386006FB672 /* AppDelegate.swift in Sources */,
+				0940E3182796CAF000D66A76 /* CacheManager.swift in Sources */,
 				09583A4F278C85FE0023C25C /* UserDetailViewModel.swift in Sources */,
 				0986DEE92788442E006FB672 /* UserAPIService.swift in Sources */,
 				09583A47278C81700023C25C /* UserDetailPresenter.swift in Sources */,

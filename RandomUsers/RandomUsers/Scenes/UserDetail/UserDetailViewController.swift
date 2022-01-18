@@ -82,8 +82,8 @@ class UserDetailViewController: UIViewController, UserDetailDisplayLogic
     {
         userDetailViewModel = viewModel.userDetailViewModel
         title = viewModel.userDetailViewModel.fullname
-        if let imageUrl = viewModel.userDetailViewModel.pictureUrl {
-            userPicture.load(url: imageUrl) { [weak self] in
+        userPicture.load(urlString: viewModel.userDetailViewModel.pictureUrlString) { [weak self] in
+            DispatchQueue.main.async {
                 self?.userPicture.roundedCorner()
             }
         }

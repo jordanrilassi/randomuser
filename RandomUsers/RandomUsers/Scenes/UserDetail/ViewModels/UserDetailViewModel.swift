@@ -16,7 +16,7 @@ struct UserDetailViewModel {
     let email: String
     let phone: String
     let cell: String
-    let pictureUrl: URL?
+    let pictureUrlString: String
     
     init(user: User) {
         gender = user.gender
@@ -27,6 +27,6 @@ struct UserDetailViewModel {
         email = user.email
         phone = user.phone
         cell = user.cell
-        pictureUrl = URL(string: user.picture.large)
+        pictureUrlString = user.picture.large
     }
 }
